@@ -1,0 +1,33 @@
+{
+    "nom_formation": "Création de contenus rédactionnels et visuels par l'usage responsable de l'intelligence artificielle générative",
+    "date_debut": "17/11/2025",
+    "date_fin": "16/12/2025",
+    "lieu": "Distanciel",
+    "duree_heures": 32.5,
+    "duree_jours": 8,
+    "formateurs": ["ALBOUZE Alexis"],
+    "apprenants": [
+        {"nom": "TABARY", "prenom": "Julien", "email": "julien.tabary@gmail.com"}
+    ],
+    "ville_signature": "Paris",
+    "sessions": [
+        {"date": "17/11/2025", "type": "E-learning", "debut": "10h00", "fin": "12h00"},
+        {"date": "17/11/2025", "type": "Visio", "debut": "15h00", "fin": "17h00"},
+        {"date": "18/11/2025", "type": "E-learning", "debut": "10h00", "fin": "12h00"},
+        {"date": "18/11/2025", "type": "Visio", "debut": "15h00", "fin": "17h00"},
+        {"date": "24/11/2025", "type": "E-learning", "debut": "10h00", "fin": "12h00"},
+        {"date": "24/11/2025", "type": "Visio", "debut": "15h00", "fin": "17h00"},
+        {"date": "01/12/2025", "type": "E-learning", "debut": "10h00", "fin": "12h00"},
+        {"date": "01/12/2025", "type": "Visio", "debut": "15h00", "fin": "17h30"},
+        {"date": "02/12/2025", "type": "E-learning", "debut": "10h00", "fin": "12h00"},
+        {"date": "02/12/2025", "type": "Visio", "debut": "15h00", "fin": "17h30"},
+        {"date": "08/12/2025", "type": "E-learning", "debut": "10h00", "fin": "12h00"},
+        {"date": "08/12/2025", "type": "Visio", "debut": "15h00", "fin": "17h30"},
+        {"date": "15/12/2025", "type": "E-learning", "debut": "10h00", "fin": "12h00"},
+        {"date": "15/12/2025", "type": "Visio", "debut": "15h00", "fin": "17h00"},
+        {"date": "16/12/2025", "type": "E-learning", "debut": "10h00", "fin": "11h00"},
+        {"date": "16/12/2025", "type": "Visio", "debut": "15h00", "fin": "17h00"}
+    ]
+}
+
+

@@ -1,0 +1,32 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Word temporary files
+~$*.docx
+~$*.doc
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.pyc
+
+# Virtual environment
+venv/
+env/
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Documents générés (optionnel - décommenter si on ne veut pas les versionner)
+# CLIENTS/*/Emargement_*.docx
+# CLIENTS/*/Certificat_*.docx
+# CLIENTS/*/Convocation_*.docx
+
