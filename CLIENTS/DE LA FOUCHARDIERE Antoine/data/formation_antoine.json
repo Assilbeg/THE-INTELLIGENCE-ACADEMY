@@ -1,0 +1,12 @@
+{
+    "nom_formation": "Apprendre Cursor",
+    "date_debut": "17/12/2025",
+    "date_fin": "19/12/2025",
+    "duree_heures": 8,
+    "apprenants": [
+        {"nom": "DE LA FOUCHARDIERE", "prenom": "Antoine"}
+    ],
+    "lieu_signature": "Paris",
+    "date_signature": "17/12/2025"
+}
+

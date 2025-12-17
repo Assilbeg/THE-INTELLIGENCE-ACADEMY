@@ -1,0 +1,65 @@
+{
+  "brandName": "Intelligence Academy",
+  "brandDescription": "Formations IA & No-Code pour professionnels (fond blanc bulletproof emails)",
+  "version": "1.0",
+  "colors": {
+    "primary": "#0a4666",
+    "secondary": "#083851",
+    "accent": "#537d93",
+    "text": "#111827",
+    "textSecondary": "#6B7280",
+    "background": "#ffffff",
+    "bgLight": "#F9FAFB",
+    "bgMedium": "#F3F4F6",
+    "success": "#10B981",
+    "warning": "#F59E0B",
+    "error": "#EF4444",
+    "info": "#0a4666",
+    "ctaBackground": "#0a4666",
+    "ctaText": "#ffffff",
+    "tile": {
+      "info": { "background": "#F9FAFB", "border": "#E5E7EB", "text": "#111827" }
+    }
+  },
+  "typography": {
+    "heading": "Bricolage Grotesque, 'Assistant', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif",
+    "body": "'Assistant', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif",
+    "weights": { "regular": 400, "medium": 600, "bold": 700 },
+    "sizes": { "greeting": "30px", "intro": "18px", "body": "16px", "button": "18px" }
+  },
+  "layout": {
+    "width": "600px",
+    "borderRadius": "8px",
+    "bodyBackground": "#ffffff",
+    "containerBackground": "#ffffff",
+    "contentPadding": "0 30px 48px 30px"
+  },
+  "assets": {
+    "logo": "https://cdn.prod.website-files.com/6898c17504679cb1a256127c/6898c17504679cb1a256147c_logo%20builders%20(new)%20256px.jpg"
+  },
+  "technical": {
+    "doctype": "<!DOCTYPE html>",
+    "meta": [
+      "<meta charset=\\\"UTF-8\\\">",
+      "<meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1.0\\\">",
+      "<meta name=\\\"format-detection\\\" content=\\\"telephone=no, date=no, address=no, email=no\\\">",
+      "<meta name=\\\"color-scheme\\\" content=\\\"light\\\">",
+      "<meta name=\\\"supported-color-schemes\\\" content=\\\"light\\\">"
+    ],
+    "tableOnly": true,
+    "noGradients": true,
+    "noShadows": true,
+    "maxBorderRadius": "8px",
+    "ctaClass": ".cta-button",
+    "antiLinkDetection": true
+  },
+  "cta": {
+    "primaryLink": "https://calendly.com/antoine-the-intelligence-academy/30min?hide_gdpr_banner=1",
+    "secondaryLink": "https://tally.so/embed/mOgLOg?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1",
+    "placement": "Above the fold: logo → salutation → accroche → CTA principal"
+  },
+  "copyTone": {
+    "person": "vouvoiement",
+    "style": "concret, orienté gain de temps et résultats (+15h/sem, 30h projets réels, 50+ partenaires)"
+  }
+}

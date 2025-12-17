@@ -1,0 +1,57 @@
+# Intelligence Academy — Guide Email Bulletproof
+
+## Structure technique (obligatoire)
+- DOCTYPE + meta : charset UTF-8, viewport, format-detection off, color-scheme light (pas de dark mode).
+- Tables uniquement (`role="presentation"`), largeur max 600px, fond blanc partout.
+- Border radius max 8px, pas d’ombres, pas de gradients (compat max).
+- Styles inline + une seule classe autorisée : `.cta-button` pour forcer le texte blanc.
+- Neutraliser l’auto-link (Apple/Gmail) via le bloc CSS standard.
+- Police web : Bricolage Grotesque (titres) + Assistant (corps) via Google Fonts (non-MSO).
+
+## Palette et typographies
+- Fond et conteneur : `#ffffff`
+- Texte : principal `#111827`, secondaire `#6B7280`
+- CTA principal : fond `#0a4666`, texte `#ffffff`
+- CTA secondaire : fond `#083851`, texte `#ffffff`
+- Accent : `#537d93`
+- Fonds légers : `#F9FAFB`, bordure claire `#E5E7EB`
+- Success/Warning/Error : `#10B981`, `#F59E0B`, `#EF4444`
+- Titres : Bricolage Grotesque 600, salutations ~30px; corps : Assistant 16px, CTA 18px
+
+## CTA et liens officiels
+- Prendre RDV (Calendly) : `https://calendly.com/antoine-the-intelligence-academy/30min?hide_gdpr_banner=1`
+- Recevoir la brochure (Tally) : `https://tally.so/embed/mOgLOg?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1`
+- Footer désabonnement : `{{ unsubscribe }}`
+
+## Règles de contenu
+- Vouvoiement.
+- CTA principal above the fold : logo → salutation → 1 phrase d’accroche → CTA.
+- Bannir : div/spans pour la mise en page, gradients, ombres, border-radius > 8px.
+- Autoriser : listes en texte simple, encadrés clairs sans ombre (fond `#F9FAFB` + bordure `#E5E7EB`).
+- Social proof à privilégier : +3000 diplômés, 94% insertion, 30h projets réels, 50+ partenaires, gains jusqu’à 15h/sem.
+- Tuiles : une ligne si possible, langage naturel (éviter l’avalanche de mots-clés), emoji + double espace avant le texte ; garder les listes d’éléments quand c’est utile (ex. financements).
+
+## Modèle de CTA
+```
+<table role="presentation" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <td class="cta-button" style="background-color:#0a4666;border-radius:8px;padding:16px 34px;">
+      <a href="URL_ICI" style="color:#ffffff !important;font-size:18px;font-weight:700;text-decoration:none;display:block;font-family:'Assistant', Arial, sans-serif;text-align:center;">
+        <font color="#ffffff" style="color:#ffffff !important;font-weight:700;font-size:18px;font-family:'Assistant', Arial, sans-serif;text-align:center;">Texte CTA</font>
+      </a>
+    </td>
+  </tr>
+</table>
+```
+
+## Check-list avant livraison
+- Fond blanc, tables only, radius ≤ 8px, aucune ombre ni gradient.
+- CTA principal visible sans scroll, texte CTA en blanc, couleur bouton palette IA.
+- Liens RDV/Brochure corrects, lien désabonnement présent.
+- Typo OK (Bricolage/Assistant), fallback system.
+- Aucune variable CRM laissée vide (utiliser `| default:""` si besoin).
+
+## Fichiers
+- `CHARTE GRAPHIQUE.JSON` : palette + règles techniques IA.
+- `TEMPLATES - MAIL/` : templates HTML prêts à coller.
+
