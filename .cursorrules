@@ -6,6 +6,7 @@ Ce projet contient des scripts Python pour générer les documents administratif
 - **Feuilles d'émargement** : `generer_emargement.py` + template `EMARGEMENT TEMPLATE.docx`
 - **Certificats de réalisation** : `generer_certificat.py` + template `certificat_de_réalisation template.docx`
 - **Convocations** : `generer_convocation.py` + template `convocation template.docx`
+- **Conventions de formation** : `generer_convention.py` + template `convention template.docx`
 
 ---
 
@@ -80,6 +81,9 @@ python3 scripts/generer_certificat.py "CLIENTS/NOM_CLIENT/data/formation.json"
 
 # Générer les convocations (une par apprenant)
 python3 scripts/generer_convocation.py "CLIENTS/NOM_CLIENT/data/formation.json"
+
+# Générer une convention de formation (une par client/entreprise)
+python3 scripts/generer_convention.py "CLIENTS/NOM_CLIENT/data/convention.json"
 ```
 
 ---
@@ -91,12 +95,14 @@ INTELLIGENCE-ACADEMY/
 ├── scripts/
 │   ├── generer_emargement.py
 │   ├── generer_certificat.py
-│   └── generer_convocation.py
+│   ├── generer_convocation.py
+│   └── generer_convention.py
 │
 ├── templates/
 │   ├── EMARGEMENT TEMPLATE.docx
 │   ├── certificat_de_réalisation template.docx
-│   └── convocation template.docx
+│   ├── convocation template.docx
+│   └── convention template.docx
 │
 ├── CLIENTS/
 │   ├── TABARY Julien/              # Dossier client (particulier)
@@ -188,6 +194,90 @@ Pour formations classiques avec les mêmes horaires tous les jours
 | **duree_jours** | ✅ | - | Nombre de jours de formation |
 | **date_emission** | ❌ | Aujourd'hui | Date affichée en haut du document |
 | **lien_ressources** | ❌ | (supprimé) | URL vers les ressources stagiaires |
+
+---
+---
+
+# 📄 CONVENTIONS DE FORMATION PROFESSIONNELLE
+
+## Particularités
+
+- **Une convention par client/entreprise** : Document contractuel entre l'organisme de formation et le bénéficiaire
+- **Données spécifiques** : Utilise un JSON dédié avec les informations légales de l'entreprise cliente
+- **Tableau des participants** : Généré dynamiquement à partir du champ `apprenants`
+- **Date de signature** : Par défaut = date du jour de génération
+- **Lieu de signature** : Par défaut = "Paris"
+
+## Structure JSON pour Convention
+
+```json
+{
+    "beneficiaire": {
+        "nom": "ENTREPRISE XYZ",
+        "siren": "123456789",
+        "siret": "12345678900011",
+        "adresse": "123 RUE EXEMPLE 75001 PARIS",
+        "representant": "Jean DUPONT",
+        "fonction": "Directeur Général"
+    },
+    "nom_formation": "Intégrer l'IA Générative à votre Activité",
+    "objectif_professionnel": "À l'issue de la formation, le stagiaire sait...",
+    "contenu_pedagogique": [
+        "Maîtriser les concepts fondamentaux de l'IA générative",
+        "Rédiger des prompts efficaces",
+        "Intégrer l'IA dans les processus métier"
+    ],
+    "moyens_pedagogiques": "Exposés interactifs, démonstrations, études de cas...",
+    "moyens_fournis_beneficiaire": "Les comptes/licences logiciels sont fournis par le Bénéficiaire.",
+    "modalite": "Présentiel",
+    "taux_distance": "0",
+    "lieu": "Locaux du client à Paris",
+    "date_debut": "25/11/2025",
+    "date_fin": "27/11/2025",
+    "duree_heures": 18,
+    "duree_jours": 3,
+    "periode_dates": "25, 26 et 27 novembre 2025",
+    "horaires": "9h00–12h00 et 14h00–17h00",
+    "effectif_min": 2,
+    "effectif_max": 12,
+    "prix_ht": "5 400 € HT",
+    "prix_ttc": "6 480 € TTC",
+    "frais_deplacement": "500 € HT (600 € TTC)",
+    "acompte": "30 % à la signature",
+    "solde": "70 % à la fin de la formation",
+    "apprenants": [
+        {"nom": "MARTIN", "prenom": "Marie", "fonction": "Chef de projet", "email": "marie.martin@xyz.com"},
+        {"nom": "DURAND", "prenom": "Pierre", "fonction": "Développeur", "email": "pierre.durand@xyz.com"}
+    ],
+    "lieu_signature": "Paris",
+    "date_signature": "04/11/2025"
+}
+```
+
+## Champs spécifiques Convention
+
+| Champ | Obligatoire | Défaut | Description |
+|-------|-------------|--------|-------------|
+| **beneficiaire.nom** | ✅ | - | Nom de l'entreprise cliente |
+| **beneficiaire.siren** | ✅ | - | Numéro SIREN (9 chiffres) |
+| **beneficiaire.siret** | ✅ | - | Numéro SIRET (14 chiffres) |
+| **beneficiaire.adresse** | ✅ | - | Adresse du siège social |
+| **beneficiaire.representant** | ✅ | - | Nom du signataire |
+| **beneficiaire.fonction** | ✅ | - | Fonction du signataire |
+| **objectif_professionnel** | ✅ | - | Objectif pédagogique global |
+| **contenu_pedagogique** | ✅ | - | Liste des compétences acquises |
+| **modalite** | ✅ | - | "Présentiel" ou "Distanciel" |
+| **taux_distance** | ❌ | "0" | Pourcentage de formation à distance |
+| **periode_dates** | ✅ | - | Dates en texte (ex: "25, 26 et 27 novembre 2025") |
+| **horaires** | ✅ | - | Horaires en texte (ex: "9h00–12h00 et 14h00–17h00") |
+| **effectif_min** | ❌ | 2 | Nombre minimum de participants |
+| **effectif_max** | ❌ | 12 | Nombre maximum de participants |
+| **prix_ht** | ✅ | - | Prix HT formaté (ex: "5 400 € HT") |
+| **prix_ttc** | ✅ | - | Prix TTC formaté (ex: "6 480 € TTC") |
+| **frais_deplacement** | ❌ | - | Frais annexes si applicable |
+| **acompte** | ✅ | - | Conditions d'acompte |
+| **solde** | ✅ | - | Conditions de paiement du solde |
+| **apprenants[].fonction** | ✅ | - | Fonction de chaque participant |
 
 ---
 ---
