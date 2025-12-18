@@ -7,6 +7,7 @@ Ce projet contient des scripts Python pour générer les documents administratif
 - **Certificats de réalisation** : `generer_certificat.py` + template `certificat_de_réalisation template.docx`
 - **Convocations** : `generer_convocation.py` + template `convocation template.docx`
 - **Conventions de formation** : `generer_convention.py` + template `convention template.docx`
+- **Programmes pédagogiques** : `generer_programme.py` + template `programme_pedagogique template.docx`
 
 ---
 
@@ -19,26 +20,30 @@ Ce projet contient des scripts Python pour générer les documents administratif
 3. **Exécuter le script** approprié
 4. **Ouvrir le fichier généré** pour validation
 
-**Note importante** : Un seul fichier JSON peut servir pour les 3 types de documents (émargement, certificat, convocation). Les champs non utilisés par un script sont simplement ignorés.
+**Note importante** : Un seul fichier JSON peut servir pour les 4 types de documents (émargement, certificat, convocation, programme). Les champs non utilisés par un script sont simplement ignorés. Le programme pédagogique nécessite des champs spécifiques (`modules`, `objectifs_pedagogiques`) qui peuvent être ajoutés au JSON existant.
 
 ---
 
 ## 📋 Grille des Informations à Collecter (JSON Unifié)
 
-| Champ | Émargement | Certificat | Convocation | Exemple |
-|-------|:----------:|:----------:|:-----------:|---------|
-| **nom_formation** | ✅ | ✅ | ✅ | "Prompt Engineering Avancé" |
-| **date_debut** | ✅ | ✅ | ✅ | "16/12/2024" |
-| **date_fin** | ✅ | ✅ | ✅ | "17/12/2024" |
-| **lieu** | ✅ | ❌ | ✅ | "Distanciel" ou "Présentiel, [adresse]" |
-| **duree_heures** | ✅ | ✅ | ✅ | 14 |
-| **duree_jours** | ❌ | ❌ | ✅ | 2 |
-| **formateurs** | ✅ | ❌ | ✅ | ["ALBOUZE Alexis"] |
-| **apprenants** | ✅ | ✅ | ✅ | nom, prénom, email |
-| **sessions** | ✅ | ❌ | ✅ | Voir format ci-dessous |
-| **ville_signature** | ✅ | ✅ | ❌ | "Paris" |
-| **date_emission** | ❌ | ❌ | ❓ | Date du jour par défaut |
-| **lien_ressources** | ❌ | ❌ | ❓ | URL Google Drive (optionnel) |
+| Champ | Émargement | Certificat | Convocation | Programme | Exemple |
+|-------|:----------:|:----------:|:-----------:|:---------:|---------|
+| **nom_formation** | ✅ | ✅ | ✅ | ✅ | "Prompt Engineering Avancé" |
+| **date_debut** | ✅ | ✅ | ✅ | ❌ | "16/12/2024" |
+| **date_fin** | ✅ | ✅ | ✅ | ❌ | "17/12/2024" |
+| **lieu** | ✅ | ❌ | ✅ | ✅ | "Distanciel" ou "Présentiel, [adresse]" |
+| **duree_heures** | ✅ | ✅ | ✅ | ✅ | 14 |
+| **duree_jours** | ❌ | ❌ | ✅ | ✅ | 2 |
+| **formateurs** | ✅ | ❌ | ✅ | ✅ | ["ALBOUZE Alexis"] |
+| **apprenants** | ✅ | ✅ | ✅ | ❌ | nom, prénom, email |
+| **sessions** | ✅ | ❌ | ✅ | ❌ | Voir format ci-dessous |
+| **ville_signature** | ✅ | ✅ | ❌ | ❌ | "Paris" |
+| **date_emission** | ❌ | ❌ | ❓ | ❌ | Date du jour par défaut |
+| **lien_ressources** | ❌ | ❌ | ❓ | ❌ | URL Google Drive (optionnel) |
+| **objectifs_pedagogiques** | ❌ | ❌ | ❌ | ✅ | Liste des objectifs |
+| **modules** | ❌ | ❌ | ❌ | ✅ | Programme détaillé |
+| **public_vise** | ❌ | ❌ | ❌ | ❓ | "Tout public" par défaut |
+| **prerequis** | ❌ | ❌ | ❌ | ❓ | "Aucun" par défaut |
 
 ---
 
@@ -84,6 +89,9 @@ python3 scripts/generer_convocation.py "CLIENTS/NOM_CLIENT/data/formation.json"
 
 # Générer une convention de formation (une par client/entreprise)
 python3 scripts/generer_convention.py "CLIENTS/NOM_CLIENT/data/convention.json"
+
+# Générer un programme pédagogique
+python3 scripts/generer_programme.py "CLIENTS/NOM_CLIENT/data/programme.json"
 ```
 
 ---
@@ -96,13 +104,15 @@ INTELLIGENCE-ACADEMY/
 │   ├── generer_emargement.py
 │   ├── generer_certificat.py
 │   ├── generer_convocation.py
-│   └── generer_convention.py
+│   ├── generer_convention.py
+│   └── generer_programme.py
 │
 ├── templates/
 │   ├── EMARGEMENT TEMPLATE.docx
 │   ├── certificat_de_réalisation template.docx
 │   ├── convocation template.docx
-│   └── convention template.docx
+│   ├── convention template.docx
+│   └── programme_pedagogique template.docx
 │
 ├── CLIENTS/
 │   ├── TABARY Julien/              # Dossier client (particulier)
@@ -110,7 +120,8 @@ INTELLIGENCE-ACADEMY/
 │   │   │   └── formation_tabary.json   # JSON unifié
 │   │   ├── Emargement_*.docx
 │   │   ├── Certificat_*.docx
-│   │   └── Convocation_*.docx
+│   │   ├── Convocation_*.docx
+│   │   └── Programme_pedagogique_*.docx
 │   │
 │   └── ENTREPRISE XYZ/             # Dossier client (entreprise)
 │       ├── data/
@@ -278,6 +289,106 @@ Pour formations classiques avec les mêmes horaires tous les jours
 | **acompte** | ✅ | - | Conditions d'acompte |
 | **solde** | ✅ | - | Conditions de paiement du solde |
 | **apprenants[].fonction** | ✅ | - | Fonction de chaque participant |
+
+---
+---
+
+# 📚 PROGRAMMES PÉDAGOGIQUES
+
+## Particularités
+
+- **Un programme par formation** : Document décrivant en détail le contenu pédagogique de la formation
+- **Document obligatoire** : Requis par les OPCO et organismes financeurs
+- **Modules dynamiques** : Le programme détaillé est généré à partir du champ `modules`
+- **Valeurs par défaut** : Public visé, prérequis, méthodes d'évaluation ont des valeurs par défaut si non spécifiés
+
+## Structure JSON pour Programme Pédagogique
+
+```json
+{
+    "nom_formation": "Intégrer l'IA Générative à votre Activité",
+    "duree_heures": 18,
+    "duree_jours": 3,
+    "modalite": "Présentiel",
+    "lieu": "Paris",
+    "formateurs": ["ALBOUZE Alexis"],
+    "public_vise": "Professionnels souhaitant intégrer l'IA dans leur activité",
+    "prerequis": "Maîtrise des outils bureautiques de base",
+    "accessibilite": "Formation accessible aux personnes en situation de handicap. Contactez-nous pour adapter les modalités.",
+    "objectifs_pedagogiques": [
+        "Comprendre les fondamentaux de l'IA générative",
+        "Maîtriser les techniques de prompt engineering",
+        "Savoir intégrer l'IA dans les processus métier",
+        "Utiliser l'IA de manière éthique et responsable"
+    ],
+    "modules": [
+        {
+            "titre": "Module 1 : Introduction à l'IA Générative",
+            "duree": "3 heures",
+            "objectifs": [
+                "Comprendre ce qu'est l'IA générative",
+                "Connaître les principaux outils disponibles"
+            ],
+            "contenu": [
+                "Histoire et évolution de l'IA",
+                "Différence entre IA traditionnelle et IA générative",
+                "Panorama des outils : ChatGPT, Claude, Midjourney, etc.",
+                "Cas d'usage en entreprise"
+            ]
+        },
+        {
+            "titre": "Module 2 : Prompt Engineering",
+            "duree": "6 heures",
+            "objectifs": [
+                "Rédiger des prompts efficaces",
+                "Optimiser les résultats obtenus"
+            ],
+            "contenu": [
+                "Anatomie d'un bon prompt",
+                "Techniques avancées : few-shot, chain-of-thought",
+                "Exercices pratiques",
+                "Correction et amélioration des résultats"
+            ]
+        }
+    ],
+    "methodes_pedagogiques": [
+        "Exposés interactifs avec démonstrations en direct",
+        "Exercices pratiques sur les outils d'IA",
+        "Études de cas concrets",
+        "Travaux de groupe et partages d'expériences"
+    ],
+    "modalites_evaluation": [
+        "Évaluation diagnostique en début de formation (quiz)",
+        "Évaluations formatives (exercices pratiques notés)",
+        "Évaluation sommative en fin de formation (projet)",
+        "Questionnaire de satisfaction à chaud"
+    ],
+    "sanction_formation": "Attestation de fin de formation mentionnant les objectifs, la durée et les résultats de l'évaluation. Certificat de réalisation remis au stagiaire."
+}
+```
+
+## Champs spécifiques Programme Pédagogique
+
+| Champ | Obligatoire | Défaut | Description |
+|-------|-------------|--------|-------------|
+| **nom_formation** | ✅ | - | Intitulé de la formation |
+| **duree_heures** | ✅ | - | Durée totale en heures |
+| **duree_jours** | ✅ | - | Durée totale en jours |
+| **modalite** | ❌ | (valeur de `lieu`) | "Présentiel" ou "Distanciel" |
+| **lieu** | ❌ | - | Lieu de la formation |
+| **formateurs** | ❌ | - | Liste des formateurs |
+| **public_vise** | ❌ | "Tout public" | Public cible de la formation |
+| **prerequis** | ❌ | "Aucun prérequis spécifique" | Prérequis nécessaires |
+| **accessibilite** | ❌ | Texte standard handicap | Informations d'accessibilité |
+| **objectifs_pedagogiques** | ✅ | - | Liste des objectifs (ce que le stagiaire saura faire) |
+| **modules** | ✅ | - | Liste des modules du programme |
+| **modules[].titre** | ✅ | - | Titre du module |
+| **modules[].duree** | ❌ | - | Durée du module (ex: "3 heures") |
+| **modules[].objectifs** | ❌ | - | Objectifs spécifiques du module |
+| **modules[].contenu** | ✅ | - | Liste des points abordés |
+| **methodes_pedagogiques** | ❌ | Texte standard | Méthodes et moyens pédagogiques |
+| **modalites_evaluation** | ❌ | Texte standard | Modalités d'évaluation |
+| **sanction_formation** | ❌ | "Attestation de fin de formation..." | Sanction délivrée |
 
 ---
 ---
