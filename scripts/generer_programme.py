@@ -108,9 +108,14 @@ def generer_programme(data: dict, output_dir: str = None, template_path: str = "
         formateur_str = formateurs
     
     # Données pédagogiques spécifiques au programme
-    public_vise = data.get("public_vise", "Tout public")
-    prerequis = data.get("prerequis", "Aucun prérequis spécifique")
-    accessibilite = data.get("accessibilite", "Formation accessible aux personnes en situation de handicap. Contactez-nous pour adapter les modalités.")
+    # Valeurs par défaut standards MINDNESS
+    public_vise_defaut = "Tout professionnel souhaitant développer ses compétences dans l'utilisation des outils d'intelligence artificielle générative dans son activité."
+    prerequis_defaut = "Savoir utiliser un ordinateur et naviguer sur Internet. Aucune connaissance préalable en intelligence artificielle n'est requise."
+    accessibilite_defaut = "Formation accessible aux personnes en situation de handicap. Contactez-nous pour adapter les modalités pédagogiques et matérielles."
+    
+    public_vise = data.get("public_vise", public_vise_defaut)
+    prerequis = data.get("prerequis", prerequis_defaut)
+    accessibilite = data.get("accessibilite", accessibilite_defaut)
     
     # Objectifs pédagogiques (liste)
     objectifs = data.get("objectifs_pedagogiques", [])
@@ -273,9 +278,9 @@ if __name__ == "__main__":
             "modalite": "Présentiel",
             "lieu": "Paris",
             "formateurs": ["ALBOUZE Alexis"],
-            "public_vise": "Professionnels souhaitant intégrer l'IA dans leur activité",
-            "prerequis": "Maîtrise des outils bureautiques de base",
-            "accessibilite": "Formation accessible aux personnes en situation de handicap. Contactez-nous pour adapter les modalités.",
+            "public_vise": "Tout professionnel souhaitant développer ses compétences dans l'utilisation des outils d'intelligence artificielle générative dans son activité.",
+            "prerequis": "Savoir utiliser un ordinateur et naviguer sur Internet. Aucune connaissance préalable en intelligence artificielle n'est requise.",
+            "accessibilite": "Formation accessible aux personnes en situation de handicap. Contactez-nous pour adapter les modalités pédagogiques et matérielles.",
             "objectifs_pedagogiques": [
                 "Comprendre les fondamentaux de l'IA générative",
                 "Maîtriser les techniques de prompt engineering",

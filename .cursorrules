@@ -377,8 +377,8 @@ Pour formations classiques avec les mêmes horaires tous les jours
 | **modalite** | ❌ | (valeur de `lieu`) | "Présentiel" ou "Distanciel" |
 | **lieu** | ❌ | - | Lieu de la formation |
 | **formateurs** | ❌ | - | Liste des formateurs |
-| **public_vise** | ❌ | "Tout public" | Public cible de la formation |
-| **prerequis** | ❌ | "Aucun prérequis spécifique" | Prérequis nécessaires |
+| **public_vise** | ❌ | "Tout professionnel souhaitant développer ses compétences dans l'utilisation des outils d'IA générative..." | Public cible de la formation |
+| **prerequis** | ❌ | "Savoir utiliser un ordinateur et naviguer sur Internet. Aucune connaissance préalable en IA n'est requise." | Prérequis nécessaires |
 | **accessibilite** | ❌ | Texte standard handicap | Informations d'accessibilité |
 | **objectifs_pedagogiques** | ✅ | - | Liste des objectifs (ce que le stagiaire saura faire) |
 | **modules** | ✅ | - | Liste des modules du programme |
