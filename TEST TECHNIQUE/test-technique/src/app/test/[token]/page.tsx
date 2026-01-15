@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { questions, totalQuestions, getQuestionByNumber, getLevelLabel } from '@/lib/questions'
 import { TestSession, Response } from '@/lib/supabase'
-import { Loader2, Video, Square, Clock, ChevronRight, Camera } from 'lucide-react'
+import { Loader2, Video, Square, Clock, ChevronRight, Camera, AlertTriangle, RefreshCw, SkipForward } from 'lucide-react'
 
-type Phase = 'intro' | 'reading' | 'recording' | 'uploading' | 'next'
+type Phase = 'intro' | 'reading' | 'recording' | 'uploading' | 'next' | 'error'
 
 export default function TestPage({ params }: { params: Promise<{ token: string }> }) {
   const { token } = use(params)
@@ -19,10 +19,12 @@ export default function TestPage({ params }: { params: Promise<{ token: string }
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   
-  // Phases: intro -> reading (30s timer) -> recording -> uploading -> next
+  // Phases: intro -> reading (30s timer) -> recording -> uploading -> next/error
   const [phase, setPhase] = useState<Phase>('intro')
   const [countdown, setCountdown] = useState(30)
   const [recordingTime, setRecordingTime] = useState(0)
+  const [failedBlob, setFailedBlob] = useState<Blob | null>(null)
+  const [uploadAttempts, setUploadAttempts] = useState(0)
   
   // Video recording
   const [hasPermission, setHasPermission] = useState<boolean | null>(null)
@@ -314,10 +316,29 @@ export default function TestPage({ params }: { params: Promise<{ token: string }
           created_at: new Date().toISOString()
         }
       ])
+      setFailedBlob(null)
+      setUploadAttempts(0)
+      setPhase('next')
+    } else {
+      // Échec de l'upload - stocker le blob pour retry
+      console.error('Upload échoué après toutes les tentatives')
+      setFailedBlob(blob)
+      setUploadAttempts(prev => prev + 1)
+      setPhase('error')
     }
-    
-    // Toujours passer à la phase suivante, même en cas d'erreur
-    setPhase('next')
+  }
+
+  const retryUpload = () => {
+    if (failedBlob) {
+      handleUpload(failedBlob)
+    }
+  }
+
+  const skipQuestion = () => {
+    // Permettre de passer même si l'upload a échoué (après avertissement)
+    setFailedBlob(null)
+    setUploadAttempts(0)
+    goToNextQuestion()
   }
 
   const goToNextQuestion = () => {
@@ -618,6 +639,48 @@ export default function TestPage({ params }: { params: Promise<{ token: string }
                     </>
                   )}
                 </Button>
+              </div>
+            )}
+
+            {/* Phase ERROR - Échec de l'upload */}
+            {phase === 'error' && (
+              <div className="text-center animate-fade-in">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-amber-500 rounded-full flex items-center justify-center mx-auto mb-6 sm:mb-7">
+                  <AlertTriangle className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white" />
+                </div>
+                <p className="text-xl sm:text-2xl md:text-3xl mb-3 sm:mb-4 font-heading text-amber-600">
+                  Échec de l&apos;envoi
+                </p>
+                <p className="text-gray-600 text-base sm:text-lg mb-7 sm:mb-8 max-w-md mx-auto px-4">
+                  Votre réponse n&apos;a pas pu être envoyée. Vérifiez votre connexion internet et réessayez.
+                </p>
+                
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  <Button
+                    onClick={retryUpload}
+                    className="bg-ia-teal hover:bg-ia-teal-light text-white text-lg sm:text-xl px-10 py-6 sm:px-12 sm:py-7 rounded-full font-heading font-semibold"
+                  >
+                    <RefreshCw className="mr-3 h-5 w-5 sm:h-6 sm:w-6" />
+                    Réessayer l&apos;envoi
+                  </Button>
+                  
+                  {uploadAttempts >= 2 && (
+                    <Button
+                      onClick={skipQuestion}
+                      variant="outline"
+                      className="text-gray-600 text-base sm:text-lg px-8 py-5 sm:px-10 sm:py-6 rounded-full font-heading"
+                    >
+                      <SkipForward className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                      Passer cette question
+                    </Button>
+                  )}
+                </div>
+                
+                {uploadAttempts < 2 && (
+                  <p className="text-gray-500 text-sm sm:text-base mt-6">
+                    Tentative {uploadAttempts}/2 - Vous pourrez passer après 2 tentatives
+                  </p>
+                )}
               </div>
             )}
 
